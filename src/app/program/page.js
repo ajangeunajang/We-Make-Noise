@@ -11,7 +11,6 @@ export default async function Program() {
       cache: "no-store", // Add the cache directive here
     }
   );
-
   const projects = await res.json();
 
   return (
