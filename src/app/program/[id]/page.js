@@ -130,8 +130,8 @@ const res = await fetch(
             <div className="castbox">
               <h4>CAST</h4>
               <pre>
-                {casts.map((cast) => (
-                  <div>{cast.name}</div>
+                {casts.map((cast, id) => (
+                  <div key={id}>{cast.name}</div>
                 ))}
               </pre>
             </div>
