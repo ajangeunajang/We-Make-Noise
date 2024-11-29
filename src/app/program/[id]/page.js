@@ -34,11 +34,11 @@ export default async function Movie(props) {
 
   
 
-  const res = await fetch(
-    `https://api.notion.com/v1/databases/${DATABASE_ID}/query`,
-    options,
-    { cache: "no-store" }
-  );
+const res = await fetch(
+  `https://api.notion.com/v1/databases/${DATABASE_ID}/query`,
+  { ...options, cache: "no-store" }
+);
+
   const data = await res.json();
 
   const title = data.results[i].properties.Title?.title?.[0]?.plain_text;
