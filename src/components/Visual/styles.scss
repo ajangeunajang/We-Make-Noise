@@ -1,0 +1,12 @@
+$marg: 1.4rem;
+$headerheight: 4.5rem;
+
+.poster {
+    width: 100vw;
+    padding: $marg;
+
+    >img {
+        margin-top: $headerheight;
+        width: 100%;
+    }
+}

@@ -1,0 +1,520 @@
+// $marg : 0.9375rem;
+$menuwidth: 100vw;
+$headerheight: 4.5rem;
+$marg: 1.4rem;
+$between: 0.25rem;
+
+@font-face {
+  font-family: "pretendard";
+  src: url(/public/fonts/Pretendard-Regular.woff2) format(woff2),
+    url(/public/fonts/Pretendard-Regular.subset.woff) format(woff);
+  font-weight: 400;
+  font-size: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+  position: relative;
+}
+
+a,
+a:link,
+a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
+html {
+  background-color: black;
+  font-size: 16px;
+  font-family: "pretendard", "neue-haas-grotesk-display", "Noto Sans TC",
+    sans-serif; //기본영문,한글,한자 순
+  font-weight: 400;
+  color: white;
+  scroll-behavior: smooth;
+}
+
+h1 {
+  font-size: 3.25rem;
+  font-weight: 500;
+}
+
+#menuicon {
+  display: none;
+}
+
+body > label {
+  z-index: 10;
+  position: fixed;
+  top: $marg;
+  right: $marg;
+
+  width: 2rem;
+  height: 1.5rem;
+
+  span {
+    position: absolute;
+    right: 0;
+    transition: all 0.3s;
+
+    display: block;
+    width: 2.3rem;
+    height: 3px;
+    background-color: white;
+    border-radius: 30px;
+  }
+
+  span:nth-child(1) {
+    position: absolute;
+    top: 0;
+  }
+
+  span:nth-child(2) {
+    position: absolute;
+    top: 50%;
+  }
+
+  span:nth-child(3) {
+    position: absolute;
+    top: 100%;
+  }
+}
+
+input[id="menuicon"]:checked + label {
+  span:nth-child(1) {
+    top: 50%;
+    transform: rotate(45deg);
+  }
+
+  span:nth-child(2) {
+    opacity: 0;
+  }
+
+  span:nth-child(3) {
+    top: 50%;
+    transform: rotate(-45deg);
+  }
+}
+
+.sidebar {
+  background-color: black;
+  width: $menuwidth;
+  height: 100vh;
+  color: white;
+  padding: 1rem;
+  padding-top: 5rem;
+
+  font-size: 1.4rem;
+  line-height: 1.5em;
+
+  position: fixed;
+  top: 0;
+  right: -$menuwidth;
+  transition: all 0.3s;
+  z-index: 9;
+
+  div.insta {
+    position: absolute;
+    top: 0.8rem;
+  }
+
+  .insta {
+    width: 2rem;
+  }
+}
+
+input[id="menuicon"]:checked + label + .sidebar {
+  right: 0;
+}
+
+.logo {
+  position: fixed;
+  z-index: 1;
+  width: 100vw;
+  height: $headerheight;
+  // background-color: black;
+  a {
+    display: block;
+    padding: $marg 0 0 $marg;
+    width: 40vw;
+    height: auto;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.poster {
+  width: 100vw;
+  padding: $marg;
+
+  > img {
+    margin-top: $headerheight;
+    width: 100%;
+  }
+}
+
+// .programinfo{
+//     position: absolute;
+//     top: $headerheight;
+//     left: 0;
+// }
+
+.filmcover {
+  width: calc(100vw - 2 * $marg);
+  height: 30vh;
+  margin: 0 $marg;
+  top: $headerheight;
+}
+
+.tagholder {
+  // margin-top: 0.5em;
+  position: absolute;
+  right: 0;
+  .tag {
+    text-align: center;
+    font-size: 0.85em;
+    font-weight: 500;
+    color: black;
+    background-color: white;
+    margin-top: 0.2em;
+    margin-left: 0.6em;
+    padding: 0 0.4em;
+    border-radius: 1rem;
+  }
+}
+
+.scroll-ani{
+  pointer-events: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    animation : scrollUp 60s linear infinite; /* 20초 동안 위로 스크롤, 무한 반복 */
+}
+
+.todays,
+.schedule {
+  padding: $marg;
+  top: $headerheight;
+
+  h1,
+  h2 {
+    text-align: center;
+    line-height: 1.5em;
+    font-size: 1.2rem;
+    font-weight: 500;
+    // padding-bottom: 1rem;
+  }
+
+  .todaysmovie {
+    // border-top: 1px solid white;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-top: 2rem;
+
+    .sectionholder{
+      margin: 2rem 0;
+    }
+    .filmtitle {
+      line-height: 1.7em;
+      font-size: 0.75em;
+      font-weight: 500;
+      display: flex;
+      justify-content: center;
+      span{
+        width: 50%;
+      }
+      .align-r{
+        text-align: right;
+      }
+      .align-l{
+        margin-left: 0.8rem;
+        text-align: left;
+      }
+    }
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      align-items: center; 
+
+      li {
+        width: 75%;
+        text-align: center;
+
+        .info, .section-number{
+            position: absolute;
+        }
+        .info{
+            left: 0;
+            top: 1em;
+        }
+        .section-number{
+            right: 0;
+            top: 1em;
+        }
+        .section-title{
+            margin-bottom: 0.8rem;
+        }
+        .infodetail{
+            margin-top: 1em;
+            font-weight: 500;
+        }
+      }
+    }
+    // h2 {
+    //     flex-basis: 100px;
+    //     flex-shrink: 0;
+    // }
+
+    // h2,
+    // ul {
+    //     padding-top: 0.5rem;
+    // }
+
+    // .timetable {
+    //     >li {
+    //         border-bottom: 4px solid white;
+
+    //         &:last-child {
+    //             border-bottom: none;
+    //         }
+    //     }
+    // }
+
+    // ul {
+    //     width: 70%;
+    //     flex-shrink: 1;
+
+    //     li {
+    //         display: block;
+    //         padding-bottom: 1rem;
+    //         // border-bottom: 1px solid white;
+
+    //         // .info {
+    //         //     font-size: 1.8rem;
+    //         // }
+
+    //         .section-title {
+    //             text-align: center;
+    //             position: absolute;
+    //             left: 50%;
+    //             transform: translateX(-50%);
+    //             top: 0;
+    //         }
+    //         .section-number {
+    //             position: absolute;
+    //             right: 0;
+    //             top: 0;
+    //         }
+
+    //         .infodetail {
+    //             margin-top: 0.5rem;
+    //             font-size: 0.8rem;
+    //             line-height: 1.2rem;
+    //             text-align: center;
+    //         }
+
+    //         .movielist {
+    //             padding-top: 0.4rem;
+    //         }
+
+    //         .textright {
+    //             text-align: right;
+    //         }
+    //     }
+    // }
+  }
+
+  .filmlist {
+    top: $marg - 1rem;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+    .thumnail {
+      width: calc(50% - $between);
+      height: 11rem;
+      margin-bottom: 1rem;
+
+      display: flex;
+      flex-direction: column;
+      border-bottom: 1px solid white;
+
+      &:nth-child(2n + 1) {
+        margin-right: $between;
+      }
+
+      &:nth-child(2n) {
+        margin-left: $between;
+      }
+
+      .stillcut {
+        width: 100%;
+        height: 7rem;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+      }
+
+      .infobox {
+        h3 {
+          padding-top: $between;
+          font-size: 0.85rem;
+          font-weight: 600;
+          line-height: 1.35em;
+          margin-bottom: calc($between / 2);
+        }
+
+        font-size: 0.7rem;
+      }
+    }
+  }
+
+  .filmpage {
+    .infobox {
+      border-bottom: 3px solid white;
+      padding-bottom: 0.7rem;
+      font-size: 0.85rem;
+
+      h3 {
+        font-size: 1.4rem;
+        padding-bottom: 0.4em;
+      }
+    }
+
+    p {
+      border-bottom: 3px solid white;
+      font-size: 1.2rem;
+      line-height: 1.38em;
+      word-break: keep-all;
+      padding-bottom: 1rem;
+      margin-bottom: 0.6rem;
+
+      .quote {
+        display: block;
+        margin: 3.8em 0 2.5em 0;
+
+        .quoteglyps {
+          font-family: "neue-haas-grotesk-display", sans-serif;
+          font-weight: 500;
+
+          letter-spacing: -10px;
+
+          &:first-child {
+            margin-right: 3px;
+          }
+
+          &:last-child {
+            margin-left: -3px;
+          }
+        }
+      }
+    }
+
+    .caststaff {
+      h4 {
+        line-height: 1em;
+        margin-bottom: 0.8em;
+      }
+
+      font-size: 1rem;
+      line-height: 1.4em;
+
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+
+      .castbox {
+        width: 7rem;
+      }
+
+      pre {
+        overflow: scroll;
+      }
+    }
+  }
+
+  .sponsor {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    > img {
+      max-width: 100%;
+      height: 3rem;
+      object-fit: contain;
+      margin-right: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    span {
+      word-break: keep-all;
+      font-size: 2rem;
+    }
+  }
+}
+
+.schedule {
+  top: $headerheight + 8rem;
+
+  .days {
+    .highlightBox {
+      pointer-events: none;
+      background-color: lightgray;
+      mix-blend-mode: difference;
+      transition: all 0.3s ease;
+      margin: -0.5rem $marg $marg $marg;
+      position: absolute;
+      width: 22vw;
+      height: $headerheight + 2rem;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      border-radius: 4px;
+    }
+
+    .datenum {
+      letter-spacing: -0.07em;
+      font-size: 3.2rem;
+      font-weight: 300;
+      display: block;
+    }
+
+    color: lightgray;
+    background-color: black;
+    padding: 0 $marg $marg $marg;
+    z-index: 2;
+    position: fixed;
+    height: $headerheight + 4rem;
+    top: $headerheight;
+    left: 0;
+    width: 100vw;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+// font-family: 'Noto Sans TC', sans-serif;
+// font-family: 'Oi', cursive;
+// font-family: 'Rubik Puddles', cursive;
+// font-family: "neue-haas-grotesk-display", sans-serif; font-weight: 500; font-style: normal;
+
+@keyframes scrollUp {
+  0% {
+    top: 100%;
+  }
+  100% {
+    top: -300%;
+  }
+}
