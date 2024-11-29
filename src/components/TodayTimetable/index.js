@@ -43,7 +43,20 @@ export default async function TodayTimetable() {
 
   // 데이터를 섹션별로 그룹화
   const groupedData = {};
+
+  if (!data.results || !Array.isArray(data.results)) {
+    console.error("Invalid data.results:", data);
+    return <div>Error loading timetable</div>;
+  }
+
+  
   data.results.forEach((item) => {
+
+    if (!item.properties) {
+      console.warn("Missing properties in item:", item);
+      return;
+    }
+    
     const section = item.properties["\bsection"]?.multi_select[0]?.name;
     const title = item.properties["Title"]?.title[0]?.plain_text;
     const director = item.properties.director?.multi_select
