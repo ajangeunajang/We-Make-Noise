@@ -100,6 +100,10 @@ input[id="menuicon"]:checked + label {
   }
 }
 
+.mt25{
+  margin-top: 2.5rem;
+}
+
 .sidebar {
   background-color: black;
   width: $menuwidth;
@@ -166,18 +170,83 @@ input[id="menuicon"]:checked + label + .sidebar {
 //     left: 0;
 // }
 
+//여긴 skeleton 작동 안되는거같음
+.skeleton-image {
+  width: 100%;
+  height: 100%;
+  background-color: #e2e5e7;
+}
+
+.skeleton-title {
+  width: 80%;
+  height: 20px;
+  background-color: #e2e5e7;
+  margin-bottom: 8px;
+}
+
+.skeleton-text {
+  width: 60%;
+  height: 16px;
+  background-color: #e2e5e7;
+}
+
+//filminfo page 스켈레톤
 .filmcover {
   width: calc(100vw - 2 * $marg);
   height: 30vh;
   margin: 0 $marg;
   top: $headerheight;
+  overflow: hidden;
+  background-color: #1a1a1a;
+
+  .skeleton {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      #1a1a1a 0%,
+      #2a2a2a 50%,
+      #1a1a1a 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2.5s infinite;
+  }
+
+  .film-image {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    &[data-loaded="true"] {
+      opacity: 1;
+    }
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 .tagholder {
-  // margin-top: 0.5em;
   position: absolute;
   right: 0;
+  bottom: 0.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
   .tag {
+    display:flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     font-size: 0.85em;
     font-weight: 500;
@@ -505,6 +574,7 @@ input[id="menuicon"]:checked + label + .sidebar {
   }
 }
 
+
 // font-family: 'Noto Sans TC', sans-serif;
 // font-family: 'Oi', cursive;
 // font-family: 'Rubik Puddles', cursive;
@@ -515,6 +585,6 @@ input[id="menuicon"]:checked + label + .sidebar {
     top: 100%;
   }
   100% {
-    top: -300%;
+    top: -500%;
   }
 }

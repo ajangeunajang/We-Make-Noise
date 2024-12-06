@@ -18,7 +18,7 @@ export default async function Program() {
     <section className="todays programinfo">
       <ul className="filmlist">
         {projects.results.map((movie) => (
-          <Thumb key={movie.id} data={movie} />
+          <Thumb key={movie.id} data={movie}/>
         ))}
       </ul>
     </section>

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Thumb({ data }) {
+export default function Thumb({ data, isLoading }) {
   const title = data.properties.Title?.title?.[0]?.plain_text || "No Title";
   const director = data.properties.director?.multi_select?.[0]?.name || "Unknown Director";
   const duration = data.properties.duration?.number;
@@ -27,6 +27,18 @@ export default function Thumb({ data }) {
     const seconds = durationInSeconds % 60; // 남은 초 계산
     return `${String(minutes).padStart(2, "0")}분 ${String(seconds).padStart(2, "0")}초`;
   };
+
+  if (isLoading) {
+    return (
+      <li className="thumnail skeleton">
+        <div className="stillcut skeleton-image" />
+        <div className="infobox">
+          <div className="skeleton-title" />
+          <div className="skeleton-text" />
+        </div>
+      </li>
+    );
+  }
 
   return (
     <li key={no} className="thumnail">

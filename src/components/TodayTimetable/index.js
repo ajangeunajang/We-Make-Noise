@@ -86,7 +86,7 @@ export default async function TodayTimetable() {
     <section
       className="todays scroll-ani"
       style={{
-        animationDuration: `${sectionCount * 5}s`, // 섹션 개수에 따라 동적 설정
+        animationDuration: `${sectionCount * 9}s`, // 섹션 개수에 따라 동적 설정
       }}
     >
       <h2>오늘의 상영</h2>
