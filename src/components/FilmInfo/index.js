@@ -23,9 +23,9 @@ const options = {
     page_size: 100,
     // filter: {
     //   property: "\b상태", // Notion 속성 이름
-    //   // status: {
-    //   //   equals: "Live", // "Live" 상태만 필터링
-    //   // },
+    //   status: {
+    //     equals: "Live", // "Live" 상태만 필터링
+    //   },
     // },
   }),
 };
@@ -37,18 +37,22 @@ export default async function FilmInfo({ id }) {
     `https://api.notion.com/v1/databases/${DATABASE_ID}/query`,
     { ...options, cache: "no-store" }
   );
+  console.log(res);
 
   if (!res.ok) {
     console.error(`Failed to fetch data for ID: ${id}`);
-    return <div>Failed to load movie data.</div>;
+    return <div className="todays">Failed to load movie data.</div>;
   }
 
   const data = await res.json();
 
   if (i < 0 || i >= data.results.length) {
     console.error(`Invalid ID: ${id}`);
-    return <div>Movie not found.</div>;
+    return <div className="todays">Movie not found.</div>;
   }
+
+  console.log("MOVIE DATA")
+  console.log(data.results[i], i);
 
   const title = data.results[i].properties.Title?.title?.[0]?.plain_text;
   const director = data.results[i].properties.director?.multi_select?.[0]?.name;

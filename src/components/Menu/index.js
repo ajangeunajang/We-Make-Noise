@@ -14,7 +14,10 @@ export default function Menu() {
           <a href="/timetable">상영시간표</a>
         </div>
         <div>
-          <a href="/program">작품소개</a>
+          <a href="/program">상영작</a>
+        </div>
+        <div>
+          <a href="/program/tag">큐레이션</a>
         </div>
         <div>
           <a href="/partners">후원사</a>

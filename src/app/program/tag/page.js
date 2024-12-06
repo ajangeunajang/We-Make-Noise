@@ -1,7 +1,6 @@
-import { TOKEN, DATABASE_ID } from "../../../../../config";
+import { TOKEN, DATABASE_ID } from "../../../../config"; 
 import Thumb from "@/components/Timetable/thumb";
 import Link from "next/link";
-import "./style.css";
 
 export const revalidate = 0; // 데이터가 매 요청 시 새로고침되도록 설정
 

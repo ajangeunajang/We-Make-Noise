@@ -8,6 +8,7 @@ export default function Thumb({ data, isLoading }) {
   const no = data.properties["\bno"]?.number;
   const tag = data.properties.tags;
 
+
   // (커버이미지 제한시간)퍼블리시 url로 대체. url 만드는 함수.
   const getPublishedImageUrl = (notionCoverUrl, projectId) => {
     const encodedUrl = encodeURIComponent(notionCoverUrl.split("?")[0]);
