@@ -37,7 +37,7 @@ export default async function FilmInfo({ id }) {
     `https://api.notion.com/v1/databases/${DATABASE_ID}/query`,
     { ...options, cache: "no-store" }
   );
-  console.log(res);
+  // console.log(res);
 
   if (!res.ok) {
     console.error(`Failed to fetch data for ID: ${id}`);
@@ -51,8 +51,8 @@ export default async function FilmInfo({ id }) {
     return <div className="todays">Movie not found.</div>;
   }
 
-  console.log("MOVIE DATA")
-  console.log(data.results[i], i);
+  // console.log("MOVIE DATA")
+  // console.log(data.results[i], i);
 
   const title = data.results[i].properties.Title?.title?.[0]?.plain_text;
   const director = data.results[i].properties.director?.multi_select?.[0]?.name;

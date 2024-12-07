@@ -2,14 +2,16 @@
   margin-bottom: 1rem;
   z-index: 4;
   position: fixed;
-
-  
+  white-space: nowrap;
+  overflow: visible;
+  width: fit-content;
 
   .tagTitle {
-    font-size: 1.4em;
+    white-space: nowrap;
+    font-size: 1.4rem;
     font-weight: 400;
     padding: 0.1em 0.5em;
-    line-height: 0;
+    line-height: 1.8;
     border: 1px solid lightgrey;
     box-sizing: border-box;
     border-radius: 100px;
@@ -20,6 +22,40 @@
       padding-right: 0.15rem;
     }
   }
+
+  .glowingTag {
+    font-size: 4em;
+    font-weight: 400;
+    padding: 0.1em 0.5em;
+    line-height: 1.6;
+    box-sizing: border-box;
+    border-radius: 100px;
+    margin-right: 0.3em;
+    color: white;
+    background: linear-gradient(
+      45deg,
+      #e71c28,
+      #ff12d2,
+      #fff,
+      #9e342a,
+      #0e0374
+    );
+    background-size: 800% 400%;
+    animation: gradientAnimation 15s ease infinite;
+  }
+}
+.flow{
+  position: relative;
+  margin-bottom: 0;
+}
+
+.flowleft {
+  animation: flowLeft 60s linear infinite;
+}
+
+.flowright{
+  animation: flowLeft 60s linear infinite reverse;
+  transform-origin: right top;
 }
 
 #currentTag {
@@ -27,19 +63,11 @@
   font-weight: 500;
   border: none;
   color: white;
-  background: linear-gradient(
-    45deg,
-    #e71c28,
-    #ff12d2,
-    #FFF,
-    #9e342a,
-    #0e0374
-  );
+  background: linear-gradient(45deg, #e71c28, #ff12d2, #fff, #9e342a, #0e0374);
   background-size: 400% 400%;
   animation: gradientAnimation 15s ease infinite;
-  .blendscreen{
+  .blendscreen {
     mix-blend-mode: exclusion;
-
   }
 }
 
@@ -71,5 +99,22 @@
 @keyframes shine {
   to {
     background-position-x: -200%;
+  }
+}
+
+@keyframes flowLeft {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+@keyframes flowRight {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
   }
 }

@@ -3,7 +3,6 @@ import Thumb from "@/components/Timetable/thumb";
 
 export const revalidate = 0; // Refresh data on every request
 
-
 export default async function Program() {
   
   const res = await fetch(
