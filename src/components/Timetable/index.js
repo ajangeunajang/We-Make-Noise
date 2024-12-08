@@ -26,7 +26,7 @@ export default function Timetable(){
                         "연애의 당사자들 | 조승우 | 29’",
                         "CONI 30000ft | 손경빈 | 8’",
                         "오! 마이 드레스 | 황옥영 | 19’",
-                        "죽고 싶다 죽이고 싶다 | 정재희 | 22’"
+                        "죽고 싶다 죽이고 ���다 | 정재희 | 22’"
                     ],
                     location: "대한극장 8관 <br /> 17:30 – 18:48"
                 },
@@ -379,7 +379,11 @@ export default function Timetable(){
                 {/* Highlight Box - Position changes based on the selected day */}
                 <div
                     className="highlightBox"
-                    style={{ left: `${activeDayIndex * 22}%` }} // Adjust left position dynamically
+                    style={{ 
+                        left: `calc((100vw - 2.8rem) / 4 * ${activeDayIndex} + 1.4rem)`,
+                        width: 'calc((100vw - 2.8rem) / 4)'
+                        //하이라이트박스의 width 때문에 위치가 틀어져 보였음. width도 상수가 아니라 동적으로 1/4 로 계산하는 식으로 변경!
+                    }}
                 />
             </div>
 
