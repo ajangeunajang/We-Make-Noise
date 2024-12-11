@@ -160,7 +160,7 @@ export default async function TodayTimetable() {
   );
 }
 
-// 상영 종료 시간 계산 함수 추가
+// 상영 종료 시간 계산 - 섹션 러닝타임 함수
 function calculateEndTime(startTime, duration) {
   const [hours, minutes] = startTime.split(':').map(Number);
   const totalMinutes = hours * 60 + minutes + duration;

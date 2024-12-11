@@ -533,6 +533,9 @@ input[id="menuicon"]:checked + label + .sidebar {
 
 .schedule {
   top: $headerheight + 8rem;
+  >ol>li{
+    margin-bottom: 8rem;
+  }
 
   .days {
     .highlightBox {
