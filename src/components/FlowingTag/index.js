@@ -1,5 +1,6 @@
 import { TOKEN, DATABASE_ID } from "../../../config";
 import Link from "next/link";
+import "./style.css";
 
 const options = {
     method: "POST",
@@ -28,9 +29,6 @@ const options = {
 
   
 export default async function FlowingTag(props){
-       
-    
-
 
     return <div className={`tagTitleContainer ${flowDirection}`}>
     {/* 
@@ -44,17 +42,21 @@ export default async function FlowingTag(props){
       movies.flatMap(movie => 
         movie.properties.tags.multi_select.map(tag => tag.name)
       )
-    )].map((tagName, index) => (
-      <Link
-        key={index}
-        href={`/program/tag/${encodeURIComponent(tagName)}`}
-        className="glowingTag"
-      >
-        <span className="blendscreen">
-          <span className="hashtag">#</span>
-          {tagName}
-        </span>
-      </Link>
-    ))}
+    )].map((tagName, index) => {
+      const randomClass = Math.random() > 0.5 ? 'gradient-text' : '';
+      
+      return (
+        <Link
+          key={index}
+          href={`/program/tag/${encodeURIComponent(tagName)}`}
+          className={`glowingTag ${randomClass}`}
+        >
+          <span className="blendscreen">
+            <span className="hashtag">#</span>
+            {tagName}
+          </span>
+        </Link>
+      );
+    })}
   </div>;
 }
