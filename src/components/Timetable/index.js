@@ -1,5 +1,6 @@
 import { TOKEN, DATABASE_ID } from "../../../config";
 import TimetableHandler from "./TimetableHandler";
+import "./style.css";
 
 export const revalidate = 0; // 매 요청 시 데이터 새로고침
 
@@ -14,7 +15,6 @@ const options = {
   body: JSON.stringify({
     sorts: [
       {
-        //왜인지 모르겠지만 sorts ascending 하면 22,23,24일 데이터는 누락되고 25일만 뜸
         property: "section",
         direction: "descending",
       },
@@ -49,10 +49,10 @@ export default async function Timetable() {
         throw new Error(`API 요청 실패: ${response.status}`);
       }
       const data = await response.json();
-      console.log('Related Page Data:', {
+      console.log("Related Page Data:", {
         id: pageId,
         date: data.properties?.상영일시?.date?.start,
-        section: data.properties?.섹션명?.rich_text[0]?.plain_text
+        section: data.properties?.섹션명?.rich_text[0]?.plain_text,
       });
       return data;
     } catch (error) {
@@ -73,16 +73,18 @@ export default async function Timetable() {
 
     // 섹션 정보가 없는 경우에도 기본 섹션으로 처리
     let sectionInfo;
-    
+
     if (item.properties.section?.relation?.length > 0) {
       // 기존 로직: 관계형 데이터베이스에서 섹션 정보 가져오기
-      const relatedPage = await getRelatedPage(item.properties.section.relation[0].id);
+      const relatedPage = await getRelatedPage(
+        item.properties.section.relation[0].id
+      );
       if (!relatedPage) continue;
 
       const screeningDate = relatedPage.properties?.상영일시?.date?.start;
       if (!screeningDate) continue;
 
-      const screeningTime = screeningDate.split('T')[1].substring(0, 5);
+      const screeningTime = screeningDate.split("T")[1].substring(0, 5);
       const runningTime = relatedPage.properties?.러닝타임?.number || 0;
       const endTime = calculateEndTime(screeningTime, runningTime);
 
@@ -91,7 +93,7 @@ export default async function Timetable() {
         theater: relatedPage.properties?.상영관?.select?.name,
         time: `${screeningTime} – ${endTime}`,
         number: relatedPage.properties.번호.title[0].plain_text,
-        date: screeningDate.split("T")[0]
+        date: screeningDate.split("T")[0],
       };
     } else {
       // 섹션 정보가 없는 경우 직접 입력된 정보 사용
@@ -100,16 +102,16 @@ export default async function Timetable() {
         theater: item.properties?.상영관?.select?.name,
         time: item.properties?.상영시간?.rich_text[0]?.plain_text,
         number: item.properties?.번호?.rich_text[0]?.plain_text,
-        date: item.properties?.상영일시?.date?.start?.split("T")[0]
+        date: item.properties?.상영일시?.date?.start?.split("T")[0],
       };
     }
 
     if (!sectionInfo?.name || !sectionInfo?.date) continue;
 
-      const title = item.properties["Title"]?.title[0]?.plain_text;
-      const director = item.properties.director?.multi_select
-        .map((dir) => dir.name)
-        .join(", ");
+    const title = item.properties["Title"]?.title[0]?.plain_text;
+    const director = item.properties.director?.multi_select
+      .map((dir) => dir.name)
+      .join(", ");
 
     if (!groupedData[sectionInfo.name]) {
       groupedData[sectionInfo.name] = {
@@ -117,7 +119,7 @@ export default async function Timetable() {
         theater: sectionInfo.theater,
         time: sectionInfo.time,
         number: sectionInfo.number,
-        date: sectionInfo.date
+        date: sectionInfo.date,
       };
     }
     groupedData[sectionInfo.name].films.push({ title, director });
@@ -125,64 +127,84 @@ export default async function Timetable() {
 
   // console.log('Grouped Data:', JSON.stringify(groupedData, null, 2));
 
+  // 날짜별 데이터 준비
+  const dates = ["2024-02-22", "2024-02-23", "2024-02-24", "2024-02-25"];
+  const movieData = dates.map((date) => ({
+    datenum: date.split("-")[2],
+    date: date,
+  }));
+
   return (
     <section className="schedule">
-      <TimetableHandler />
+      <TimetableHandler movieData={movieData} />
 
       <ol>
-        {["2024-02-22", "2024-02-23", "2024-02-24", "2024-02-25"].map((date) => (
-          <li key={date}>
-            <h2>{formatDate(date)}</h2>
-            <div className="todaysmovie">
-              <ul className="credit-animation">
-                {Object.keys(groupedData)
-                  .filter(section => groupedData[section].date === date)
-                  .sort((a, b) => {
-                    // 섹션 번호를 기준으로 오름차순 정렬
-                    return Number(groupedData[a].number) - Number(groupedData[b].number);
-                  })
-                  .map((section) => (
-                    <li key={section} className="sectionholder">
-                      <div className="section-number">섹션{groupedData[section].number}</div>
-                      <div className="section-title">{section}</div>
-                      <div className="info">
-                        {groupedData[section].time.split(" – ")[0]}
-                      </div>
+        {["2024-02-22", "2024-02-23", "2024-02-24", "2024-02-25"].map(
+          (date) => (
+            <li key={date}>
+              <h2>{formatDate(date)}</h2>
+              <div className="todaysmovie">
+                <ul className="credit-animation">
+                  {Object.keys(groupedData)
+                    .filter((section) => groupedData[section].date === date)
+                    .sort((a, b) => {
+                      // 섹션 번호를 기준으로 오름차순 정렬
+                      return (
+                        Number(groupedData[a].number) -
+                        Number(groupedData[b].number)
+                      );
+                    })
+                    .map((section) => (
+                      <li key={section} className="sectionholder">
+                        <div className="section-number">
+                          섹션{groupedData[section].number}
+                        </div>
+                        <div className="section-title">{section}</div>
+                        <div className="info">
+                          {groupedData[section].time.split(" – ")[0]}
+                        </div>
 
-                    <ul>
-                      {groupedData[section].films.map(
-                        ({ title, director }, index) => (
-                          <li key={index} className="filmtitle">
-                            <span className="align-r">{title}</span>
-                            <span className="align-l">{director} 감독</span>
-                          </li>
-                        )
-                      )}
-                    </ul>
+                        <ul>
+                          {groupedData[section].films.map(
+                            ({ title, director }, index) => (
+                              <li key={index} className="filmtitle">
+                                <span className="align-r">{title}</span>
+                                <span className="align-l">{director} 감독</span>
+                              </li>
+                            )
+                          )}
+                        </ul>
 
-                      <div className="infodetail">
-                        {groupedData[section].theater} |{" "}
-                        {groupedData[section].time}
-                      </div>
-                    </li>
-                  ))}
-              </ul>
-            </div>
-          </li>
-        ))}
+                        <div className="infodetail">
+                          {groupedData[section].theater} |{" "}
+                          {groupedData[section].time}
+                        </div>
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            </li>
+          )
+        )}
       </ol>
+
+      <div className="back-to-main">
+        <a href="#">
+          <span></span>
+        </a>
+      </div>
     </section>
   );
 }
 
-// 날짜 포맷팅 함수 추��
+// 날짜 포맷팅 함수 추가
 function formatDate(dateString) {
   const date = new Date(dateString);
-  const days = ['일', '월', '화', '수', '목', '금', '토'];
+  const days = ["일", "월", "화", "수", "목", "금", "토"];
   const month = date.getMonth() + 1;
   const day = date.getDate();
   const dayOfWeek = days[date.getDay()];
-  
+
   return `${month}월 ${day}일 ${dayOfWeek}요일`;
 }
 

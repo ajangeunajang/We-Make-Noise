@@ -536,6 +536,9 @@ input[id="menuicon"]:checked + label + .sidebar {
   >ol>li{
     margin-bottom: 8rem;
   }
+  >ol>li:last-child{
+    margin-bottom: 3rem;
+  }
 
   .days {
     .highlightBox {

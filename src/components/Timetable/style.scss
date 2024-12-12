@@ -1,0 +1,37 @@
+$border-width: 1.8px;
+
+.back-to-main {
+  position: absolute;
+  right: 1.8rem;
+  margin-top: -4rem;
+  border: $border-width solid white;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  a {
+    width: 45%;
+    height: 45%;
+    transform: rotate(-45deg);
+    display: inline-block;
+    border-top: $border-width solid white;
+    border-right: $border-width solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      top: 33%;
+      left: 33%;
+      display: inline-block;
+      width: 145%;
+      height: 145%;
+      border-left: $border-width solid white;
+      transform: rotate(45deg);
+      z-index: -10;
+    }
+  }
+}
