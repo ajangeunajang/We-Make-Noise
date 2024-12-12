@@ -585,6 +585,7 @@ h2 {
 }
 
 .partners {
+  width: 100vw;
   top: $headerheight * 1.5;
   text-align: center;
   margin-bottom: 10rem;
@@ -626,4 +627,53 @@ h2 {
   100% {
     top: -500%;
   }
+}
+
+@media screen and (min-width: 768px) {
+  $between: 1rem;
+  html {
+    font-size: 20px;
+  }
+  .todays .todaysmovie ul li,
+  .schedule .todaysmovie ul li {
+    width: 40%;
+  }
+  .logo a {
+    width: 20vw;
+}
+.todays .filmlist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $between;
+  
+  .thumnail:nth-child(n) {
+    width: calc((100% - (3 * $between)) / 4);
+    margin: 0 0 1rem 0;
+  }
+}
+.todays .filmlist .thumnail, .schedule .filmlist .thumnail {
+  width: calc(24%);
+  height: 11rem;
+  margin-bottom: 1rem;
+  display: flex
+;
+  flex-direction: column;
+  border-bottom: 1px solid #fff;
+}
+.filmcover {
+  height: 70vh;
+}
+.tagholder .tag {
+  font-size: 1rem;
+}
+.mt25 {
+  margin-top: 3.5rem;
+}
+.partners ol li {
+  margin-bottom: 5rem;
+}
+.partners ol li h2 {
+  margin-bottom: 1rem;
+}
+
 }

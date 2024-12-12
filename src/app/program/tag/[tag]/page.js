@@ -32,6 +32,7 @@ const createOptions = (tag) => ({
 
 export default async function TaggedMoviesPage({ params }) {
   const { tag } = params;
+  
   // URL인코딩된 한글 문자를 디코딩해야함
   const decodedTag = decodeURIComponent(tag);
   let movies = [];
