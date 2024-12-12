@@ -1,3 +1,5 @@
+$flowtime: 90s;
+
 .tagTitleContainer {
   margin-bottom: 1rem;
   z-index: 4;
@@ -23,7 +25,7 @@
     }
   }
 
-  .glowingTag {
+  .BigTag {
     font-size: 4em;
     font-weight: 400;
     padding: 0.1em 0.5em;
@@ -33,29 +35,36 @@
     border-radius: 100px;
     margin-right: 0.3em;
     color: white;
-    // background: linear-gradient(
-    //   45deg,
-    //   #e71c28,
-    //   #ff12d2,
-    //   #fff,
-    //   #9e342a,
-    //   #0e0374
-    // );
+    
+  }
+
+  .GlowingBg {
+    border: none;
+    background: linear-gradient(
+      45deg,
+      #e71c28,
+      #ff12d2,
+      #fff,
+      #9e342a,
+      #0e0374
+    );
     background-size: 800% 400%;
-    animation: gradientAnimation 15s ease infinite;
+    animation: gradientAnimation 10s ease infinite;
+
   }
 }
+
 .flow{
   position: relative;
   margin-bottom: 0;
 }
 
 .flowleft {
-  animation: flowLeft 60s linear infinite;
+  animation: flowLeft $flowtime linear infinite;
 }
 
 .flowright{
-  animation: flowLeft 60s linear infinite reverse;
+  animation: flowLeft $flowtime linear infinite reverse;
   transform-origin: right top;
 }
 
@@ -85,11 +94,8 @@
 }
 
 .filmcover {
-  position: relative;
-  width: 100%;
-  height: 50vh; /* 또는 원하는 높이 */
   background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
-  background-size: 200% 100%;
+  background-size: 100% 100%;
   animation: 1.5s shine linear infinite;
 }
 

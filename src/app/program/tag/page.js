@@ -1,7 +1,6 @@
 import { TOKEN, DATABASE_ID } from "../../../../config";
 import Link from "next/link";
 import "./[tag]/style.css";
-import FlowingTag from "@/components/FlowingTag";
 
 export const revalidate = 0; // 데이터가 매 요청 시 새로고침되도록 설정
 
@@ -30,7 +29,7 @@ const options = {
   }),
 };
 
-export default async function TaggedMoviesPage({ params }) {
+export default async function FlowingTag({ params }) {
   const { tag } = params;
   const decodedTag = tag ? decodeURIComponent(tag) : "";
   let movies = [];
@@ -48,155 +47,44 @@ export default async function TaggedMoviesPage({ params }) {
     console.error(error);
     return <div>Failed to load movies for the selected tag.</div>;
   }
+
+  //한줄 - 모든 테그 긁어와서 흐르는 에니메이션
+  const TagContainer = ({ direction, style }) => (
+    <div 
+      className={`tagTitleContainer flow flow${direction}`}
+      style={style}
+    >
+      {[...Array(2)].flatMap(() => 
+        [...new Set(
+          movies.flatMap((movie) =>
+            movie.properties.tags.multi_select.map((tag) => tag.name)
+          )
+        )].map((tagName, index) => (
+          <Link
+            key={`${index}-${Math.random()}`}  // 고유한 key 값을 위해 수정
+            href={`/program/tag/${encodeURIComponent(tagName)}`}
+            className={`BigTag ${Math.random() < 0.25 ? 'GlowingBg' : ''}`}
+            style={{ animationDelay: `${Math.random() * 5}s` }}
+          >
+            <span className="blendscreen">
+              <span className="hashtag">#</span>
+              {tagName}
+            </span>
+          </Link>
+        ))
+      )}
+    </div>
+  );
+
   return (
-    <section className="todays programinfo">
-      <div className="tagTitleContainer flow flowleft">
-        {/* 
-      1. movies.flatMap()을 사용하 모든 영화를 순회
-      2. flatMap()으로 각 영화의 태그 배열을 하나의 배열로 평탄화
-      3. new Set()으로 중복 태그를 제거
-      4. 스프레드 산자(...)로 Set을 다시 배열로 변환
-      5. 최종 태그 배열을 map으로 순회하며 링크 생성
-    */}
-        {[
-          ...new Set(
-            movies.flatMap((movie) =>
-              movie.properties.tags.multi_select.map((tag) => tag.name)
-            )
-          ),
-        ].map((tagName, index) => (
-          <Link
-            key={index}
-            href={`/program/tag/${encodeURIComponent(tagName)}`}
-            className="glowingTag"
-          >
-            <span className="blendscreen">
-              <span className="hashtag">#</span>
-              {tagName}
-            </span>
-          </Link>
-        ))}
-      </div>
-      <div className="tagTitleContainer flow flowright">
-        {[
-          ...new Set(
-            movies.flatMap((movie) =>
-              movie.properties.tags.multi_select.map((tag) => tag.name)
-            )
-          ),
-        ].map((tagName, index) => (
-          <Link
-            key={index}
-            href={`/program/tag/${encodeURIComponent(tagName)}`}
-            className="glowingTag"
-          >
-            <span className="blendscreen">
-              <span className="hashtag">#</span>
-              {tagName}
-            </span>
-          </Link>
-        ))}
-      </div>
-      <div className="tagTitleContainer flow flowleft">
-        {[
-          ...new Set(
-            movies.flatMap((movie) =>
-              movie.properties.tags.multi_select.map((tag) => tag.name)
-            )
-          ),
-        ].map((tagName, index) => (
-          <Link
-            key={index}
-            href={`/program/tag/${encodeURIComponent(tagName)}`}
-            className="glowingTag"
-          >
-            <span className="blendscreen">
-              <span className="hashtag">#</span>
-              {tagName}
-            </span>
-          </Link>
-        ))}
-      </div>
-      <div className="tagTitleContainer flow flowright">
-        {[
-          ...new Set(
-            movies.flatMap((movie) =>
-              movie.properties.tags.multi_select.map((tag) => tag.name)
-            )
-          ),
-        ].map((tagName, index) => (
-          <Link
-            key={index}
-            href={`/program/tag/${encodeURIComponent(tagName)}`}
-            className="glowingTag"
-          >
-            <span className="blendscreen">
-              <span className="hashtag">#</span>
-              {tagName}
-            </span>
-          </Link>
-        ))}
-      </div>
-      <div className="tagTitleContainer flow flowleft">
-        {[
-          ...new Set(
-            movies.flatMap((movie) =>
-              movie.properties.tags.multi_select.map((tag) => tag.name)
-            )
-          ),
-        ].map((tagName, index) => (
-          <Link
-            key={index}
-            href={`/program/tag/${encodeURIComponent(tagName)}`}
-            className="glowingTag"
-          >
-            <span className="blendscreen">
-              <span className="hashtag">#</span>
-              {tagName}
-            </span>
-          </Link>
-        ))}
-      </div>
-      <div className="tagTitleContainer flow flowright">
-        {[
-          ...new Set(
-            movies.flatMap((movie) =>
-              movie.properties.tags.multi_select.map((tag) => tag.name)
-            )
-          ),
-        ].map((tagName, index) => (
-          <Link
-            key={index}
-            href={`/program/tag/${encodeURIComponent(tagName)}`}
-            className="glowingTag"
-          >
-            <span className="blendscreen">
-              <span className="hashtag">#</span>
-              {tagName}
-            </span>
-          </Link>
-        ))}
-      </div>
-      <div className="tagTitleContainer flow flowleft">
-        {[
-          ...new Set(
-            movies.flatMap((movie) =>
-              movie.properties.tags.multi_select.map((tag) => tag.name)
-            )
-          ),
-        ].map((tagName, index) => (
-          <Link
-            key={index}
-            href={`/program/tag/${encodeURIComponent(tagName)}`}
-            className="glowingTag"
-          >
-            <span className="blendscreen">
-              <span className="hashtag">#</span>
-              {tagName}
-            </span>
-          </Link>
-        ))}
-      </div>
+    <section className="todays programinfo fixed">
+      {[...Array(7)].map((_, index) => (
+        <TagContainer 
+          key={index} 
+          direction={index % 2 === 0 ? 'left' : 'right'} 
+          style={{ animationDelay: `${Math.random() * -15}s` }}
+        />
+      ))}
     </section>
   );
 }
